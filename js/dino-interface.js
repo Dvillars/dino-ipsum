@@ -1,16 +1,11 @@
-$(document).ready(function() {
-  $('#dino-form').click(function(event) {
-    event.preventDefault();
+var Dino = require("./../js/dino.js").dinoModule;
 
+$(document).ready(function() {
+  var currentDino = new Dino();
+  $('#dino-form').submit(function() {
+    event.preventDefault();
     var words = parseInt($('#dino-words').val());
     var paragraphs = parseInt($('#dino-paragraphs').val());
-
-    $.get('http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=' + words + '&words=' + paragraphs)
-    .then(function(json) {
-        $('#display-result').text(json);
-    })
-    .fail(function() {
-        console.log('Where did all the dinosaurs go?');
-    });
+    currentDino.getDino(words, paragraphs);
   });
 });
